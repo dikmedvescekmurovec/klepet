@@ -22,10 +22,11 @@ a {
   width: 85%;
   height: 300px;
   overflow: auto;
-  background-color: #FFFFCC;
+  background-color:#FFFFCC;
   margin-bottom: 1em;
   margin-right: 10px;
 }
+
 
 #seznam-kanalov, #seznam-uporabnikov {
   float: right;
@@ -44,8 +45,14 @@ a {
   cursor: pointer;
 }
 
+
 #seznam-kanalov div:hover {
   background-color: #ddd;
+}
+
+#seznam-uporabnikov div:hover {
+  background-color: #ddd;
+  cursor: pointer;
 }
 
 #poslji-sporocilo {
