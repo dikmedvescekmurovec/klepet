@@ -16,7 +16,8 @@ function procesirajVnosUporabnika(klepetApp, socket) {
   var sporocilo = $('#poslji-sporocilo').val();
   sporocilo = dodajSmeske(sporocilo);
   var sistemskoSporocilo;
-
+  
+  
   if (sporocilo.charAt(0) == '/') {
     sistemskoSporocilo = klepetApp.procesirajUkaz(sporocilo);
     if (sistemskoSporocilo) {
@@ -28,7 +29,8 @@ function procesirajVnosUporabnika(klepetApp, socket) {
     $('#sporocila').append(divElementEnostavniTekst(sporocilo));
     $('#sporocila').scrollTop($('#sporocila').prop('scrollHeight'));
   }
-
+  $('#sporocila').append("<img src=\"https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQ3TbEJkubLP_qomeNunFXpKrweFBAitDgsGGADiKVzNICNZ5a6\" width: 200px style = \"margin-left: 20px\"></img>");
+  var urlCheck = new RegExp("/(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/");
   $('#poslji-sporocilo').val('');
 }
 
@@ -73,9 +75,11 @@ $(document).ready(function() {
     $('#sporocila').append(divElementHtmlTekst('Sprememba kanala.'));
   });
 
+  //TODO: Ob sprejemu sporočila pogledamo, ce je v njem link za slike. Ce je, dodamo sliko 
   socket.on('sporocilo', function (sporocilo) {
     var novElement = divElementEnostavniTekst(sporocilo.besedilo);
     $('#sporocila').append(novElement);
+    $('#sporocila').append("<img src=\"https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQ3TbEJkubLP_qomeNunFXpKrweFBAitDgsGGADiKVzNICNZ5a6\" width: 200px style = \"margin-left: 20px\"></img>");
   });
   
   socket.on('kanali', function(kanali) {
