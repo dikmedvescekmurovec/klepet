@@ -30,6 +30,12 @@ function procesirajVnosUporabnika(klepetApp, socket) {
   }
 
   $('#poslji-sporocilo').val('');
+  
+  var re = new RegExp('https?:\/\/www\.youtube\.com\/watch\?v=([0-9a-zA-Z]+)', 'gi');
+  var link;
+  while((link = re.exec(sporocilo)) != null){
+    console.log(link[0]);
+  }
 }
 
 var socket = io.connect();
