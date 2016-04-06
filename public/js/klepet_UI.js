@@ -29,10 +29,16 @@ function procesirajVnosUporabnika(klepetApp, socket) {
     $('#sporocila').append(divElementEnostavniTekst(sporocilo));
     $('#sporocila').scrollTop($('#sporocila').prop('scrollHeight'));
   }
-  $('#sporocila').append("<img src=\"https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQ3TbEJkubLP_qomeNunFXpKrweFBAitDgsGGADiKVzNICNZ5a6\" width: 200px style = \"margin-left: 20px\"></img>");
-  var urlCheck = new RegExp("/(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/");
   $('#poslji-sporocilo').val('');
+  
+  var re = new RegExp('https?://.+?\\.(jpg|png|gif)', 'gi')
+  var link;
+  while((link = re.exec(sporocilo)) != null){
+     $('#sporocila').append("<img src=\"" + link[0] + "\" width=\"200\" style = \"margin-left: 20px\"></img>");
+  }
+  
 }
+/** Lenna: https://upload.wikimedia.org/wikipedia/en/2/24/Lenna.png */
 
 var socket = io.connect();
 var trenutniVzdevek = "", trenutniKanal = "";
@@ -79,7 +85,13 @@ $(document).ready(function() {
   socket.on('sporocilo', function (sporocilo) {
     var novElement = divElementEnostavniTekst(sporocilo.besedilo);
     $('#sporocila').append(novElement);
-    $('#sporocila').append("<img src=\"https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQ3TbEJkubLP_qomeNunFXpKrweFBAitDgsGGADiKVzNICNZ5a6\" width: 200px style = \"margin-left: 20px\"></img>");
+    
+    var obdelavaSporocila = sporocilo.besedilo;
+    var re = new RegExp('https?://.+?\\.(jpg|png|gif)', 'gi')
+    var link;
+    while((link = re.exec(obdelavaSporocila)) != null){
+      $('#sporocila').append("<img src=\"" + link[0] + "\" width=\"200\" style = \"margin-left: 20px\"></img>");
+    }
   });
   
   socket.on('kanali', function(kanali) {
